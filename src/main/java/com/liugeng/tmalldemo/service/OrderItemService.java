@@ -11,7 +11,10 @@ public interface OrderItemService {
     void update(OrderItem orderItem);
     OrderItem get(int oiid);
     List<OrderItem> listByOid(int oid);
+    OrderItem listByUidAndPid(int uid, int pid);
 
     void fill(List<Order> orders);
     void fill(Order order);
+
+    int getSaleCount(int pid);
 }

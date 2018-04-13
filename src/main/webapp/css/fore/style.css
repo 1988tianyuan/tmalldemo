@@ -414,11 +414,21 @@ div.license span {
 
 div.simpleLogo {
     padding: 32px 0px;
+    width: 200px;
 }
 
 img.loginBackgroundImg {
     display: block;
     margin: 0px auto;
+    position: absolute;
+    z-index: -1;
+}
+
+div.loginDiv{
+    position: relative;
+    height: 700px;
+    width: 1200px;
+    margin: auto;
 }
 
 div.loginDivInProductPageModalDiv {
@@ -439,8 +449,9 @@ div.loginDivInProductPage {
 div.loginSmallDiv {
     background-color: white;
     position: absolute;
-    right: 180px;
-    top: 180px;
+    right: 100px;
+    /*top: 180px;*/
+    margin: 100px 0px;
     width: 350px;
     height: 400px;
     padding: 60px 25px 80px 25px;
@@ -586,6 +597,7 @@ div.productUnit span.productUnitDesc {
 
 div.productUnitFrame{
     border:1px solid #eee;
+    height: 100%;
 }
 div.productUnitFrame:hover{
     border:1px solid #C40000;
@@ -671,15 +683,15 @@ div.productUnit div.productInfo {
 
 img.simpleLogo {
     position: absolute;
-    left: 10px;
-    top: 50px;
+    /*left: 10px;*/
+    /*top: 50px;*/
     width: 140px;
 }
 
 div.simpleSearchDiv {
     background-color: #C40000;
     width: 300px;
-    margin: 10px 20px 40px;
+    margin: 40px auto;
     padding: 1px;
     height: 40px;
     display: block;
@@ -801,9 +813,9 @@ div.infoInimgAndInfo span.promotionPriceDesc {
     color: #999999;
     display: inline-block;
     width: 68px;
-    position: relative;
-    left: 0px;
-    top: -10px;
+    /*position: relative;*/
+    /*left: 0px;*/
+    /*top: -10px;*/
 }
 
 div.infoInimgAndInfo span.originalPriceYuan {
@@ -919,16 +931,20 @@ div.infoInimgAndInfo span.serviceCommitmentLink a {
 }
 
 div.productDetailDiv {
-    width: 790px;
+    width: 1000px;
     margin: 40px auto;
+
 }
 
 div.productReviewDiv {
-    width: 790px;
+    width: 1000px;
     margin: 40px auto;
+    display: none;
 }
 
 div.productReviewContentPart {
+    width: 1000px;
+    margin: auto;
     padding-top: 50px;
 }
 
@@ -1014,7 +1030,7 @@ span.productReviewTopReviewLinkNumber {
 }
 
 div.productDetailImagesPart img {
-    display: block; margin 20px 0px;
+    display: block; margin: 20px  auto;
     width: 790px;
 }
 
@@ -1033,7 +1049,7 @@ div.productReviewItem div.productReviewItemDesc {
     display: inline-block;
     color: #333333;
     height: 94px;
-    margin: 5px 20px;
+    margin: 0px 20px;
     float: left;
 }
 
@@ -1058,9 +1074,7 @@ span.userInfoGrayPart {
     color: #999999;
 }
 
-div.productReviewDiv {
-    display: none;
-}
+
 
 div.buyPageDiv {
     margin: 20px auto;
@@ -2139,8 +2153,8 @@ table.registerTable td {
 }
 
 td.registerTableLeftTD {
-    width: 300px;
-    text-align: right;
+    width: 100px;
+    text-align: left;
 }
 
 td.registerTableRightTD {
@@ -2163,12 +2177,21 @@ td.registerButtonTD {
     text-align: center;
 }
 
-table.registerTable button {
+table.registerTable button.registerReject {
     width: 170px;
     height: 36px;
     border-radius: 2px;
     color: white;
-    background-color: #C40000;
+    background-color: #c0bec4;
+    border-width: 0px;
+}
+
+table.registerTable button.registerPermit {
+    width: 170px;
+    height: 36px;
+    border-radius: 2px;
+    color: white;
+    background-color: #c41722;
     border-width: 0px;
 }
 
@@ -2183,10 +2206,11 @@ div.registerSuccessDiv {
     font-size: 16px;
     color: #3C3C3C;
     padding: 20px 130px;
+    text-align: center;
 }
 
 div.categoryPageDiv {
-    max-width: 1013px;
+    max-width: 1180px;
     margin: 10px auto;
 }
 
@@ -2197,7 +2221,7 @@ div.searchResultDiv {
 }
 
 div.productPageDiv {
-    max-width: 1013px;
+    max-width: 1180px;
     margin: 10px auto;
 }
 

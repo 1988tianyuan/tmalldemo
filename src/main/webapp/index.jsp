@@ -7,4 +7,5 @@
 
 <a href="forehome">前往购物主页</a>
 <a href="admin">前往管理员界面</a>
+<a href="accessRegisterPage">前往登录界面</a>
 </html>

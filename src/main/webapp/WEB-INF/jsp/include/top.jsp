@@ -10,19 +10,19 @@
 
 <nav class="top">
 
-    <div id="outOfTop" style="margin: auto">
-    <a href="">
+    <div id="outOfTop" style="width:1180px; margin: auto">
+    <a href="forehome">
         <span style="color: #C40000; margin-right: 0px" class="glyphicon glyphicon-home redColor"></span>
         天猫首页
     </a>
     <span>喵，欢迎来到天猫</span>
     <c:if test="${!empty user}">
-        <a href="login.jsp">${user.name}</a>
+        <a href="login">${user.name}</a>
         <a href="forelogout">退出</a>
     </c:if>
     <c:if test="${empty user}">
-        <a href="login.jsp">请登录</a>
-        <a href="forelogout">免费注册</a>
+        <a href="loginPage">请登录</a>
+        <a href="accessRegisterPage">免费注册</a>
     </c:if>
 
     <span class="pull-right"style="float: right">

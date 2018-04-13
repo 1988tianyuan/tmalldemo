@@ -95,7 +95,7 @@
             <span style="margin-left: 10px"><a href=""><img src="img/site/guoji.png"></a></span>
             <c:forEach items="${categories}" var="c" varStatus="vs">
                 <c:if test="${vs.count<=6}">
-                    <span><a href="forecategory?cid=${c.id}">${c.name}</a></span>
+                    <span><a href="foreCategory?cid=${c.id}">${c.name}</a></span>
                 </c:if>
             </c:forEach>
         </div>

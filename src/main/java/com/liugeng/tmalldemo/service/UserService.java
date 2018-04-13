@@ -9,5 +9,7 @@ public interface UserService {
     void delete(int uid);
     void update(User user);
     User get(int uid);
+    User get(String name, String password);
     List<User> list();
+    boolean nameCheck(String name);
 }
