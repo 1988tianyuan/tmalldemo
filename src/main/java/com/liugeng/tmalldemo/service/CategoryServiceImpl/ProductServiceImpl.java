@@ -6,9 +6,7 @@ import com.liugeng.tmalldemo.pojo.Category;
 import com.liugeng.tmalldemo.pojo.Product;
 import com.liugeng.tmalldemo.pojo.ProductExample;
 import com.liugeng.tmalldemo.pojo.ProductImage;
-import com.liugeng.tmalldemo.service.CategoryService;
-import com.liugeng.tmalldemo.service.ProductImageService;
-import com.liugeng.tmalldemo.service.ProductService;
+import com.liugeng.tmalldemo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +22,10 @@ public class ProductServiceImpl implements ProductService{
     CategoryService categoryService;
     @Autowired
     ProductImageService productImageService;
+    @Autowired
+    ReviewService reviewService;
+    @Autowired
+    OrderItemService orderItemService;
 
     @Override
     public void add(Product product) {
@@ -95,6 +97,21 @@ public class ProductServiceImpl implements ProductService{
         }
     }
 
+    @Override
+    public void setSaleAndReviewNumber(List<Product> products) {
+        for(Product product:products){
+            setSaleAndReviewNumber(product);
+        }
+    }
+
+    @Override
+    public void setSaleAndReviewNumber(Product product) {
+        int reviewNumber = reviewService.getCount(product.getId());
+        int saleCount = orderItemService.getSaleCount(product.getId());
+        product.setReviewCount(reviewNumber);
+        product.setSaleCount(saleCount);
+    }
+
     void setProductImageService(Product product){
         List<ProductImage> productFirstImageList = productImageService.list(product.getId(), ProductImageService.type_single);
         if(!productFirstImageList.isEmpty()){
@@ -110,5 +127,15 @@ public class ProductServiceImpl implements ProductService{
         for(Product product:products){
             setCategory(product);
         }
+    }
+
+    @Override
+    public List<Product> searchByName(String keyWord) {
+        ProductExample productExample = new ProductExample();
+        productExample.createCriteria().andNameLike(keyWord);
+        List<Product> products = productMapper.selectByExample(productExample);
+        setSaleAndReviewNumber(products);
+        setFirstProductImage(products);
+        return products;
     }
 }

@@ -7,6 +7,8 @@ public class User {
 
     private String password;
 
+    private String anonymousName;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,24 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getAnonymousName() {
+        return anonymousName;
+    }
+
+    public void setAnonymousName(String anonymousName) {
+        this.anonymousName = anonymousName;
+    }
+
+    public void setAnonymousName(){
+        if(null==name)anonymousName = null;
+        if(name.length()<=1)anonymousName = "*";
+        if(name.length()==2)anonymousName = name.substring(0,2)+"*";
+        char[] chars = name.toCharArray();
+        for(int i = 1; i < name.length()-1; i++){
+            chars[i] = '*';
+        }
+        anonymousName = new String(chars);
     }
 }

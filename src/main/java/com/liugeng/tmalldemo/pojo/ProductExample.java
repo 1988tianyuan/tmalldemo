@@ -206,12 +206,12 @@ public class ProductExample {
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("name like", "%"+value+"%", "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("name not like", "%"+value+"%", "name");
             return (Criteria) this;
         }
 
