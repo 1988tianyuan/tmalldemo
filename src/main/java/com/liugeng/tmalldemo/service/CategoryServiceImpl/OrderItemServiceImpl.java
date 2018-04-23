@@ -51,9 +51,9 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public OrderItem listByUidAndPid(int uid, int pid){
+    public OrderItem listByUidAndPidWithoutOid(int uid, int pid){
         OrderItemExample orderItemExample = new OrderItemExample();
-        orderItemExample.createCriteria().andUidEqualTo(uid).andPidEqualTo(pid);
+        orderItemExample.createCriteria().andUidEqualTo(uid).andPidEqualTo(pid).andOidIsNull();
         List<OrderItem> orderItems = orderItemMapper.selectByExample(orderItemExample);
         if(!orderItems.isEmpty()){
             OrderItem orderItem = orderItems.get(0);
@@ -61,6 +61,15 @@ public class OrderItemServiceImpl implements OrderItemService{
             return orderItem;
         }
         return null;
+    }
+
+    @Override
+    public List<OrderItem> listWithOutOid(int uid) {
+        OrderItemExample orderItemExample = new OrderItemExample();
+        orderItemExample.createCriteria().andOidIsNull().andUidEqualTo(uid);
+        List<OrderItem> orderItems = orderItemMapper.selectByExample(orderItemExample);
+        setProduct(orderItems);
+        return orderItems;
     }
 
     @Override

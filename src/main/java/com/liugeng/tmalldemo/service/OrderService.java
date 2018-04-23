@@ -1,6 +1,7 @@
 package com.liugeng.tmalldemo.service;
 
 import com.liugeng.tmalldemo.pojo.Order;
+import com.liugeng.tmalldemo.pojo.OrderItem;
 
 import java.util.List;
 
@@ -11,9 +12,10 @@ public interface OrderService {
     String waitReview = "waitReview";
     String finish = "finish";
     String delete = "delete";
-    void add(Order order);
+    int add(Order order);
     void delete(int oid);
     void update(Order order);
     Order get(int oid);
     List<Order> list();
+    float addWithOrderItems(Order order, List<OrderItem>orderItems);
 }

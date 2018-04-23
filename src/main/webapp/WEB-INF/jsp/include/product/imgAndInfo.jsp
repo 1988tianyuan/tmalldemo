@@ -85,13 +85,26 @@
             $.get(
                 page, function (result) {
                     if("success" === result){
-                        alert("哈哈哈 傻逼 骗你的！");
+                        return addCart();
                     }else {
                         $("#loginModal").modal("show");
                     }
                 }
             )
         })
+
+        //点击button，加入购物车，ajax的post方式
+        var addCart = function () {
+            var pid = ${product.id};
+            var num = $("input.productNumberSetting").val();
+            var page = "immeBuy";
+            $.post(
+                page, {"pid":pid, "number":num}, function () {
+                    alert("加入购物车成功");
+                    $("button.addCartButton").css("background-color","#4dc436").css("border", "#4dc436");
+                }
+            )
+        }
 
         //在模态登录窗口进行点击登录验证，验证失败则打开错误提示栏，提示相关错误信息
         $("button.loginSubmitButton").click(function () {

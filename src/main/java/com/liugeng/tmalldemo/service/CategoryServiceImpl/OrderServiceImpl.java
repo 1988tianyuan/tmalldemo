@@ -4,11 +4,15 @@ import com.liugeng.tmalldemo.mapper.OrderMapper;
 import com.liugeng.tmalldemo.mapper.UserMapper;
 import com.liugeng.tmalldemo.pojo.Order;
 import com.liugeng.tmalldemo.pojo.OrderExample;
+import com.liugeng.tmalldemo.pojo.OrderItem;
+import com.liugeng.tmalldemo.service.OrderItemService;
 import com.liugeng.tmalldemo.service.OrderService;
 import com.liugeng.tmalldemo.service.UserService;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,10 +22,12 @@ public class OrderServiceImpl implements OrderService{
     OrderMapper orderMapper;
     @Autowired
     UserService userService;
+    @Autowired
+    OrderItemService orderItemService;
 
     @Override
-    public void add(Order order) {
-        orderMapper.insertSelective(order);
+    public int add(Order order) {
+        return orderMapper.insertSelective(order);
     }
 
     @Override
@@ -48,6 +54,20 @@ public class OrderServiceImpl implements OrderService{
         List<Order> orders = orderMapper.selectByExample(orderExample);
         setUser(orders);
         return orders;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public float addWithOrderItems(Order order, List<OrderItem> orderItems) {
+        float total = 0;
+        add(order);
+        int oid = order.getId();
+        for(OrderItem orderItem:orderItems){
+            orderItem.setOid(oid);
+            orderItemService.update(orderItem);
+            total += orderItem.getNumber()*orderItem.getProduct().getPromotePrice();
+        }
+        return total;
     }
 
     void setUser (List<Order> orders){
