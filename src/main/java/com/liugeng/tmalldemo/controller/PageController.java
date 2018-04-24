@@ -20,4 +20,9 @@ public class PageController {
     public String login(){
         return "fore/login";
     }
+
+    @RequestMapping("aliPay")
+    public String aliPay(){
+        return "fore/forealipay";
+    }
 }

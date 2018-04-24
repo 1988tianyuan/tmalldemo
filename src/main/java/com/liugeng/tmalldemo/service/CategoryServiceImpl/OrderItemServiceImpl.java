@@ -51,6 +51,28 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
+    public OrderItem listByUidAndPidWithoutOid(int uid, int pid){
+        OrderItemExample orderItemExample = new OrderItemExample();
+        orderItemExample.createCriteria().andUidEqualTo(uid).andPidEqualTo(pid).andOidIsNull();
+        List<OrderItem> orderItems = orderItemMapper.selectByExample(orderItemExample);
+        if(!orderItems.isEmpty()){
+            OrderItem orderItem = orderItems.get(0);
+            setProduct(orderItem);
+            return orderItem;
+        }
+        return null;
+    }
+
+    @Override
+    public List<OrderItem> listWithOutOid(int uid) {
+        OrderItemExample orderItemExample = new OrderItemExample();
+        orderItemExample.createCriteria().andOidIsNull().andUidEqualTo(uid);
+        List<OrderItem> orderItems = orderItemMapper.selectByExample(orderItemExample);
+        setProduct(orderItems);
+        return orderItems;
+    }
+
+    @Override
     public void fill(List<Order> orders) {
         for(Order order:orders){
             fill(order);

@@ -3,8 +3,7 @@ package com.liugeng.tmalldemo.controller;
 import com.liugeng.tmalldemo.comparator.*;
 import com.liugeng.tmalldemo.pojo.*;
 import com.liugeng.tmalldemo.service.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,13 +32,17 @@ public class ForeController {
     PropertyValueService propertyValueService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    OrderItemService orderItemService;
+    @Autowired
+    OrderService orderService;
 
     @RequestMapping("forehome")
-    public String listCategory(Model model){
+    public String listCategory(Model model, HttpSession session){
         List<Category> categories = categoryService.list();
         productService.fill(categories);
-        model.addAttribute("categories", categories);
         productService.fillByRow(categories);
+        model.addAttribute("categories", categories);
         return "fore/home";
     }
 
@@ -90,6 +96,7 @@ public class ForeController {
     @RequestMapping("forelogout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
+        session.removeAttribute("oiCount");
         return "redirect:loginPage";
     }
 
@@ -158,11 +165,94 @@ public class ForeController {
         return "fore/foresearch";
     }
 
+    @RequestMapping("immeBuy")
+    public String immeBuy(OrderItem orderItem, HttpSession session){
+        int oiid;
+        User user = (User) session.getAttribute("user");
+        int uid = user.getId();
+        orderItem.setUid(uid);
+        OrderItem orderItemExist = orderItemService.listByUidAndPidWithoutOid(uid, orderItem.getPid());
+        if(null != orderItemExist){
+            int number = orderItemExist.getNumber();
+            number += orderItem.getNumber();
+            orderItemExist.setNumber(number);
+            orderItemService.update(orderItemExist);
+            oiid = orderItemExist.getId();
+        }else {
+            orderItemService.add(orderItem);
+            oiid = orderItem.getId();
+        }
+        return "redirect:confirmBuy?oiid="+oiid;
+    }
 
+    /**
+     * 通过购物车结算和确认购买，二合一，都是查看当前未绑定order的orderItem
+     * 前台将oiid通过GET方式传过来
+     * */
+    @RequestMapping("confirmBuy")
+    public String comfirmBuy(String[]oiid, Model model, HttpSession session){
+        List<OrderItem> orderItems = new ArrayList<>();
+        float total = 0;
+        for(String strOiid : oiid){
+            int intOiid = Integer.parseInt(strOiid);
+            OrderItem orderItem = orderItemService.get(intOiid);
+            orderItems.add(orderItem);
+            total += orderItem.getProduct().getPromotePrice() * orderItem.getNumber();
+        }
+        session.setAttribute("ois", orderItems);
+        model.addAttribute("total", total);
+        return "fore/confirmBuy";
+    }
 
+    /**
+     * 查看购物车，查找当前用户id下未绑定order的orderItem
+     * */
+    @RequestMapping("forecart")
+    public String cart(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        List<OrderItem> orderItems = orderItemService.listWithOutOid(user.getId());
+        model.addAttribute("ois", orderItems);
+        return "fore/cart";
+    }
 
+    @RequestMapping("deleteOi")
+    public String deleteOrderItem(@RequestParam("oiid")int oiid){
+        orderItemService.delete(oiid);
+        return "redirect:cart";
+    }
 
+    @RequestMapping("changeoinumber")
+    @ResponseBody
+    public String changeOiNumber(@RequestParam("oiid")int oiid, @RequestParam("num")int number ){
+        OrderItem orderItem = orderItemService.get(oiid);
+        orderItem.setNumber(number);
+        orderItemService.update(orderItem);
+        return "success";
+    }
 
+    /**
+    * 接受前台传过来的Order信息，新建Order，并将未绑定oid的orderItem绑定上oid
+     * 完成后将总价和oid存入session，便于顾客付款
+    * */
+    @RequestMapping("forecreateOrder")
+    @ResponseBody
+    public String createOrder(HttpSession session, Order order){
+        List<OrderItem> orderItems = (List<OrderItem>) session.getAttribute("ois");
+        User user = (User) session.getAttribute("user");
+        String orderCode = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + RandomUtils.nextInt(10000);
+        Date createDate = new Date();
+
+        order.setOrderCode(orderCode);
+        order.setUid(user.getId());
+        order.setStatus(OrderService.waitPay);
+        order.setCreateDate(createDate);
+
+        float totalCost = orderService.addWithOrderItems(order, orderItems);
+
+        session.setAttribute("totalCost", totalCost);
+        session.setAttribute("order", order);
+        return "aliPay";
+    }
 
 
 
