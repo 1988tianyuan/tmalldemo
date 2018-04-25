@@ -24,7 +24,7 @@ public class mybatisGenerator {
         System.out.println(today);
         if(today.getTime()>initialDay.getTime()+1000*60*60*24){
             System.out.println("----禁止运行！----");
-            System.out.println("----想继续运行的话请把initialDate改成最新事件！----");
+            System.out.println("----想继续运行的话请把initialDate改成最新时间----");
             return;
         }
 

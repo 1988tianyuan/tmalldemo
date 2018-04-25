@@ -17,7 +17,9 @@
             <div class="productReviewItem">
                 <div class="productReviewItemDesc">
                     <div class="productReviewItemContent">${review.content}</div>
-                    <div class="productReviewItemDate">${review.createDate}</div>
+                    <div class="productReviewItemDate">
+                        <fmt:formatDate value="${review.createDate}" pattern="yyyy-MM-dd"/>
+                    </div>
                 </div>
                 <div class="productReviewItemUserInfo">${review.user.anonymousName}</div>
                 <div style="clear: both"></div>

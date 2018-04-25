@@ -15,6 +15,6 @@ public interface OrderItemService {
     OrderItem listByUidAndPidWithoutOid(int uid, int pid);
     void fill(List<Order> orders);
     void fill(Order order);
-
     int getSaleCount(int pid);
+    boolean stockCheckAndUpdate(List<OrderItem> orderItems);
 }

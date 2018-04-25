@@ -690,7 +690,7 @@ img.simpleLogo {
 
 div.simpleSearchDiv {
     background-color: #C40000;
-    width: 400px;
+    width: 430px;
     margin: 40px auto;
     padding: 1px;
     height: 40px;
@@ -698,7 +698,7 @@ div.simpleSearchDiv {
 }
 
 div.simpleSearchDiv input {
-    width: 275px;
+    width: 300px;
     border: 1px solid transparent;
     height: 34px;
     margin: 2px;
@@ -944,7 +944,7 @@ div.productReviewDiv {
 }
 
 div.productReviewContentPart {
-    width: 1000px;
+    width: 1180px;
     margin: auto;
     padding-top: 50px;
 }
@@ -1110,6 +1110,18 @@ button.buyButton {
     /* 	font-weight:700; */
     color: #C40000;
     font-family: arial;
+}
+
+button.buyButtonNoStock {
+    border: 1px solid #c0bec4;
+    background-color: #c0bec4;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    /* 	font-weight:700; */
+    color: #757378;
+    font-family: arial;
+
 }
 
 button.addCartButton {
@@ -1404,9 +1416,18 @@ button.confirmPay {
     margin-top: 20px;
 }
 
+div.noStockDiv{
+    border: 1px solid #b9def0;
+    width: 400px;
+    margin:50px auto;
+    padding: 20px;
+    text-align: center;
+    font-size:15px;
+}
+
 div.payedDiv {
     border: 1px solid #D4D4D4;
-    max-width: 1013px;
+    max-width: 1180px;
     margin: 10px auto 20px auto;
 }
 
@@ -1424,6 +1445,7 @@ div.payedTextDiv span {
 
 div.payedAddressInfo {
     padding: 26px 35px;
+    margin-left: 50px;
 }
 
 div.payedAddressInfo li {
@@ -1455,7 +1477,7 @@ a.payedCheckLink:hover {
     text-decoration: underline;
 }
 
-div.paedCheckLinkDiv {
+div.payedCheckLinkDiv {
     margin-left: 38px;
 }
 
@@ -1644,8 +1666,9 @@ table.orderListTitleTable {
     text-align: center;
 }
 
-table.orderListTitleTable td {
+table.orderListTitleTable th {
     padding: 12px 0px;
+    text-align: center;
 }
 
 div.orderType a {
@@ -1672,6 +1695,7 @@ div.orderTypeLastOne {
     overflow: hidden;
     float: none !important;
     border-bottom: 2px solid #E8E8E8;
+    height: 35px;
 }
 
 a.noRightborder {
@@ -1694,6 +1718,10 @@ tr.orderListItemFirstTR {
 }
 
 table.orderListItemTable td {
+     padding: 8px 10px;
+ }
+
+table.orderListItemTable th {
     padding: 8px 10px;
 }
 
@@ -1768,6 +1796,20 @@ button.orderListItemConfirm:hover {
     background-color: #118ADB;
 }
 
+button.orderListItemPay{
+    background-color: #ffc6ab;
+    border-radius: 2px;
+    color: #18181d;
+    font-size: 12px;
+    font-weight: bold;
+    border-width: 0px;
+    padding: 6px 12px;
+}
+
+button.orderListItemPay:hover{
+    background-color: #db63a6;
+}
+
 button.orderListItemReview {
     border: 1px solid #DCDCDC;
     background-color: #fff;
@@ -1783,7 +1825,7 @@ button.orderListItemReview:hover {
     color: #C40000;
 }
 
-td.orderItemDeleteTD {
+th.orderItemDeleteTD {
     text-align: right;
 }
 
@@ -1800,7 +1842,7 @@ td.orderListItemNumberTD {
 }
 
 div.confirmPayPageDiv {
-    max-width: 1013px;
+    max-width: 1180px;
     margin: 10px auto;
 }
 
@@ -1964,7 +2006,7 @@ div.orderFinishDiv span {
 }
 
 div.reviewDiv {
-    max-width: 1013px;
+    max-width: 1180px;
     margin: 10px auto;
 }
 
@@ -2030,12 +2072,12 @@ span.reviewProductInfoRightBelowText {
     border: 1px solid #EFEFEF;
     /* 	border-left-width:1px;	 */
     display: inline-block;
-    width: 200px;
+    width: 250px;
     height: 42px;
     padding: 4px;
     position: relative;
-    left: -4px;
-    top: -7px;
+    left: 21px;
+    top: -1px;
     color: #666666;
 }
 
@@ -2306,5 +2348,10 @@ table.cartProductTable th.selectAndImage{
 
 table td{
     font-size:12px;
+}
+
+img.reviewProductImg{
+    width: 400px;
+    height: 400px;
 }
 

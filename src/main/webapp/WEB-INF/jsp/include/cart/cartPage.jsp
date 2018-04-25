@@ -86,7 +86,7 @@
         //将所选的订单项提交到“确认购买”页面
         $("button.createOrderButton").click(function () {
             var oiidSelected;
-            var page = "confirmBuy?"
+            var page = "foreConfirmBuy?"
             $("img.cartProductItemIfSelected").each(function () {
                 if("true" === $(this).attr("whetherSelected")){
                     oiidSelected = $(this).attr("oiid");
@@ -119,6 +119,7 @@
     //将每个选中的orderItem的金额同步到总价中
     function syncPrice() {
         var sumPrice = 0;
+        var selectCount = 0; //对选中的item数目进行统计
         $("img.cartProductItemIfSelected").each(function () {
             var vst = $(this).attr("itemNum");
             var whetherSelected = $(this).attr("whetherSelected");
@@ -126,8 +127,9 @@
             smallSum = parseFloat(smallSum);
             if("true" === whetherSelected){
                 sumPrice += smallSum;
+                selectCount ++;
             }
-        })
+        });
         if(0 != sumPrice){
             $("button.createOrderButton").css("background-color","#C40000");
             $("button.createOrderButton").removeAttr("disabled");
@@ -136,6 +138,7 @@
             $("button.createOrderButton").attr("disabled","disabled");
         }
         $("span#cartSumPrice").html(sumPrice);
+        $("span.cartSumNumber").html(selectCount);
     }
 
     function changeOiNum(oiid, num) {

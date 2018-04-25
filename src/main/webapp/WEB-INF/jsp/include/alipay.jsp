@@ -12,17 +12,16 @@
         <img src="img/site/simpleLogo.png" class="pull-left"/>
     </div>
     <div style="clear: both"></div>
-    <div>订单号：${order.orderCode}</div>
+    <div>订单号：${orderWithoutPay.orderCode}</div>
     <div>
         <span class="confirmMoneyText">扫一扫付款（元）</span>
-        <span class="confirmMoney">￥${totalCost}</span>
+        <span class="confirmMoney">￥${orderWithoutPay.totalCost}</span>
     </div>
     <div>
         <img src="img/site/alipay2wei.png" class="aliPayImg">
     </div>
     <div>
-        <button class="confirmPay">确认支付</button>
+        <a href="forepay?oid=${orderWithoutPay.id}">确定付款</a>
     </div>
 
 </div>
-

@@ -4,10 +4,13 @@ import com.liugeng.tmalldemo.mapper.OrderItemMapper;
 import com.liugeng.tmalldemo.pojo.Order;
 import com.liugeng.tmalldemo.pojo.OrderItem;
 import com.liugeng.tmalldemo.pojo.OrderItemExample;
+import com.liugeng.tmalldemo.pojo.Product;
 import com.liugeng.tmalldemo.service.OrderItemService;
 import com.liugeng.tmalldemo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -106,6 +109,23 @@ public class OrderItemServiceImpl implements OrderItemService{
             saleCount += orderItem.getNumber();
         }
         return saleCount;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackForClassName = "Exception")
+    public boolean stockCheckAndUpdate(List<OrderItem> orderItems) {
+        for(OrderItem orderItem:orderItems){
+            Product product = productService.get(orderItem.getPid());
+            int recentStock = product.getStock();
+            int itemNumber = orderItem.getNumber();
+            int futureStock = recentStock - itemNumber;
+            if(futureStock >= 0){
+                product.setStock(futureStock);
+                productService.update(product);
+                return true;
+            }
+        }
+        return false;
     }
 
     void setProduct(OrderItem orderItem){

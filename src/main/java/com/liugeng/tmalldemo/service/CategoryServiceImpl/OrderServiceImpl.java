@@ -70,6 +70,32 @@ public class OrderServiceImpl implements OrderService{
         return total;
     }
 
+    @Override
+    public List<Order> listWithUid(int uid, String neededStatus) {
+        OrderExample orderExample = new OrderExample();
+        orderExample.createCriteria().andUidEqualTo(uid).andStatusNotEqualTo(neededStatus);
+        List<Order> ordersWithUid = orderMapper.selectByExample(orderExample);
+        return ordersWithUid;
+    }
+
+    @Override
+    public float calTotalCost(Order order) {
+        float total = 0;
+        List<OrderItem> orderItems = orderItemService.listByOid(order.getId());
+        for(OrderItem orderItem:orderItems){
+            total += orderItem.getNumber()*orderItem.getProduct().getPromotePrice();
+        }
+        order.setTotalCost(total);
+        return total;
+    }
+
+    @Override
+    public void calAllTotalCost(List<Order> orders) {
+        for(Order order:orders){
+            calTotalCost(order);
+        }
+    }
+
     void setUser (List<Order> orders){
         for(Order order:orders){
             setUser(order);

@@ -29,11 +29,11 @@
     <!--配置登录拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/fore*"/>
             <bean class="com.liugeng.tmalldemo.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
-            <mvc:mapping path="/*"/>
+            <mvc:mapping path="/fore*"/>
             <bean class="com.liugeng.tmalldemo.interceptor.OtherInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

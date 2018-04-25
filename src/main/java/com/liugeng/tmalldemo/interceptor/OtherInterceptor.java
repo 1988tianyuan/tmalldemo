@@ -43,10 +43,6 @@ public class OtherInterceptor extends HandlerInterceptorAdapter {
             }
         }
         session.setAttribute("oiCount", oiNumber);
-
-
-
-
     }
 
     @Override

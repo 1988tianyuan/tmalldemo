@@ -65,17 +65,17 @@
 
             <tbody>
                 <c:forEach items="${orders}" var="o">
-                <%--从后端获取category集合，并分别生成表格元素--%>
+                <%--从后端获取order集合，并分别生成表格元素--%>
                     <tr>
                         <td>${o.id}</td>
                         <td>${o.showStatus}</td>
                         <td>${o.totalCost}</td>
                         <td>${o.totalNumber}</td>
                         <td>${o.user.name}</td>
-                        <td><fmt:formatDate value="${o.createDate}" pattern="yyyy-mm-dd hh:mm:ss"/></td>
-                        <td><fmt:formatDate value="${o.payDate}" pattern="yyyy-mm-dd hh:mm:ss"/></td>
-                        <td><fmt:formatDate value="${o.deliveryDate}" pattern="yyyy-mm-dd hh:mm:ss"/></td>
-                        <td><fmt:formatDate value="${o.confirmDate}" pattern="yyyy-mm-dd hh:mm:ss"/></td>
+                        <td><fmt:formatDate value="${o.createDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                        <td><fmt:formatDate value="${o.payDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                        <td><fmt:formatDate value="${o.deliveryDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                        <td><fmt:formatDate value="${o.confirmDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                         <td>
                             <button class="checkDetail btn btn-primary btn-xs" oid="${o.id}">查看详情</button>
                             <c:if test="${o.status == 'waitDelivery'}">

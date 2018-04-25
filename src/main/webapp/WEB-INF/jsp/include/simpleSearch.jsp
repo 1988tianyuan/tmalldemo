@@ -20,7 +20,7 @@
                 <c:forEach items="${cs}" var="c" varStatus="st">
                     <c:if test="${st.count>=8 and st.count<=11}">
                     <span>
-                        <a href="forecategory?cid=${c.id}">
+                        <a href="foreCategory?cid=${c.id}">
                                 ${c.name}
                         </a>
                         <c:if test="${st.count!=11}">

@@ -71,7 +71,7 @@
                     if("success" === result){
                         var pid = ${product.id};
                         var num = $("input.productNumberSetting").val();
-                        location.href = "immeBuy?pid="+pid+"&number="+num;
+                        location.href = "foreImmeBuy?pid="+pid+"&number="+num;
                     }else {
                         $("#loginModal").modal("show");
                     }
@@ -97,7 +97,7 @@
         var addCart = function () {
             var pid = ${product.id};
             var num = $("input.productNumberSetting").val();
-            var page = "immeBuy";
+            var page = "foreImmeBuy";
             $.post(
                 page, {"pid":pid, "number":num}, function () {
                     alert("加入购物车成功");
@@ -214,8 +214,14 @@
         </div>
 
         <div class="buyDiv">
-            <button class="buyButton">立即购买</button>
-            <button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button>
+            <c:if test="${product.stock == 0}">
+                <button class="buyButtonNoStock" disabled="disabled">立即购买</button>
+                <button class="buyButtonNoStock" disabled="disabled"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button>
+            </c:if>
+            <c:if test="${product.stock != 0}">
+                <button class="buyButton">立即购买</button>
+                <button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button>
+            </c:if>
         </div>
 
     </div>

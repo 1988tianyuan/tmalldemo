@@ -17,5 +17,8 @@ public interface OrderService {
     void update(Order order);
     Order get(int oid);
     List<Order> list();
+    List<Order> listWithUid(int uid, String neededStatus);
     float addWithOrderItems(Order order, List<OrderItem>orderItems);
+    float calTotalCost(Order order);
+    void calAllTotalCost(List<Order> orders);
 }
